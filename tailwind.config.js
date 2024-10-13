@@ -40,6 +40,10 @@ export default {
         base: '500',
         heading: '700',
       },
+      fontFamily: {
+        sans: ['DM Sans', 'sans-serif'],
+        // Anda bisa menambahkan variasi font lain jika diperlukan
+      },
     },
   },
   
