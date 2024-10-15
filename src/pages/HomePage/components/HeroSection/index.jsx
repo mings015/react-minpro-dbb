@@ -1,13 +1,14 @@
 import GridPattern from "@/components/ui/grid-pattern";
-import { cn } from "@/lib/utils"; //
-import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
+import { Button } from "../../../../components/ui/button";
 
 import { ArrowUpRight } from 'lucide-react';
+import { Link } from "react-router-dom";
 
 
 const HeroSectiom = () => {
   return (
-    <div className="container relative z-10 mx-auto">
+    <div className="relative z-10 border-b-2 border-border">
       <GridPattern
         width={40}
         height={40}
@@ -30,11 +31,13 @@ const HeroSectiom = () => {
           <span className="text-main"> https://reqres.in/</span>
         </h2>
         </div>
+        
+        <Link to="/login">
         <Button className="gap-2 p-6 text-xl font-heading">
             Try Now 
-            
             <ArrowUpRight />
         </Button>
+        </Link>
       </div>
     </div>
   );
