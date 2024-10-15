@@ -16,7 +16,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const LoginPage = () => {
   return (
     <div className="flex flex-col h-screen md:flex-row">
-      {/* Left side - Always visible */}
       <div className="flex flex-col items-center justify-center w-full h-full md:w-1/2">
         <GridPattern
           width={40}
@@ -29,7 +28,7 @@ const LoginPage = () => {
             "[mask-image:radial-gradient(600px_circle_at_center,white,transparent)]"
           )}
         />
-        <div>
+        <div className="relative">
           <p className="py-5 text-3xl font-heading">Welcome !! ✨</p>
           <Tabs defaultValue="account" className="w-[350px] lg:w-[400px]">
             <TabsList className="grid w-full grid-cols-2">
@@ -91,16 +90,15 @@ const LoginPage = () => {
         </div>
       </div>
 
-      {/* Right side - Hidden on mobile */}
       <div className="items-center justify-center hidden p-10 bg-main md:flex md:w-1/2">
         <div className="text-white">
           <h2 className="my-4 text-3xl font-heading">
             Sign in with account below to access dashboard
           </h2>
-          {/* <div className="my-2 italic">
+          <div className="my-2 italic">
           <p>email : eve.holt@reqres.in</p>
           <p>password : cityslicka</p>
-          </div> */}
+          </div>
           <p className="my-4 text-xl">
           This DemoApp is fully integrated with the ReqRes API</p>
           

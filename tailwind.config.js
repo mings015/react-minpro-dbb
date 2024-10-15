@@ -44,6 +44,20 @@ export default {
         sans: ['DM Sans', 'sans-serif'],
         // Anda bisa menambahkan variasi font lain jika diperlukan
       },
+      animation: {
+        marquee: "marquee 50s linear infinite",
+        marquee2: "marquee2 20s linear infinite",
+      },
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+        marquee2: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0%)" },
+        },
+      },
     },
   },
   
