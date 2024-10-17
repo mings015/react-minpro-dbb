@@ -32,7 +32,7 @@ const HeroSectiom = () => {
         </h2>
         </div>
         
-        <Link to="/login">
+        <Link to="/user">
         <Button className="gap-2 p-6 text-xl font-heading">
             Try Now 
             <ArrowUpRight />
