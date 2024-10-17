@@ -4,7 +4,7 @@ export const BASE_URL= {
 
 export const END_POINT= {
     LOGIN: "/login",
-    GET_PROFILE: "/profile",
+    REGISTER: "/register",
     GET_USERS: "/users",
     UPDATE_PROFILE: "/profile/update",
     DELETE_ACCOUNT: "/account/delete",
