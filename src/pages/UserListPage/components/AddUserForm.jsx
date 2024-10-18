@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,13 +12,13 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { BASE_URL, END_POINT } from '@/helper/constants/endpoint';
+import { BASE_URL, END_POINT } from "@/helper/constants/endpoint";
 
 const AddUserForm = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
+    firstName: "",
+    lastName: "",
+    email: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -27,7 +27,7 @@ const AddUserForm = () => {
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
       [id]: value,
     }));
@@ -39,22 +39,26 @@ const AddUserForm = () => {
     setError(null);
 
     try {
-      const response = await axios.post(`${BASE_URL.API}${END_POINT.GET_USERS}`, {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        email: formData.email,
-      });
-      console.log('User added:', response.data);
+      const response = await axios.post(
+        `${BASE_URL.API}${END_POINT.GET_USERS}`,
+        {
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+        }
+      );
+      console.log("User added:", response.data);
       setSuccess(true);
-      setFormData({ firstName: '', lastName: '', email: '' }); // Reset form
+
+      setFormData({ firstName: "", lastName: "", email: "" }); // Reset form
     } catch (err) {
-      setError('Failed to add user. Please try again.');
-      console.error('Error adding user:', err);
+      setError("Failed to add user. Please try again.");
+      console.error("Error adding user:", err);
     } finally {
       setIsLoading(false);
     }
   };
-  
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -98,7 +102,7 @@ const AddUserForm = () => {
                 Email
               </Label>
               <Input
-              autoComplete="off"
+                autoComplete="off"
                 id="email"
                 type="email"
                 className="col-span-3"
@@ -111,10 +115,14 @@ const AddUserForm = () => {
           {error && <p className="text-sm text-red-500">{error}</p>}
           <DialogFooter>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? 'Adding...' : 'Save'}
+              {isLoading ? "Adding..." : "Save"}
             </Button>
           </DialogFooter>
-        {success && <p className="my-2 text-sm text-green-500">Success Add User, Show Data in Console</p>}
+          {success && (
+            <p className="my-2 text-sm text-green-500">
+              Success Add User, Show Data in Console
+            </p>
+          )}
         </form>
       </DialogContent>
     </Dialog>

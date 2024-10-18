@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import GridPattern from "../UserListPage/components/GridPattern";
-import BreadCrumb from "../UserListPage/components/BreadCrumb";
 
 import CardComment from "./components/CardComment";
 
@@ -28,8 +27,19 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import BreadCrumb from "./components/BreadCrumb";
+import { useParams } from "react-router-dom";
+import UseDetailUser from "@/hooks/useDetailUser";
+import SkeletonUser from "../UserListPage/components/SkeletonUser";
+import UseDeleteUser from "@/hooks/useDeleteUser";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Terminal } from "lucide-react";
 
 const DetailUserPage = () => {
+  const { id } = useParams();
+  const { detail, isLoading, error } = UseDetailUser(id);
+  const { handleDelete, successDelete, handleAddUser } = UseDeleteUser();
+
   return (
     <>
       <Header />
@@ -38,25 +48,34 @@ const DetailUserPage = () => {
         <div className="container flex flex-col gap-5 mx-auto">
           <div className="flex flex-col gap-5 px-5 mt-10 sm:px-0">
             <BreadCrumb />
+            {isLoading && (
+              <div>
+                <SkeletonUser />
+              </div>
+            )}
+            {error && <div className="text-red-500">{error}</div>}
+            {!detail && <div>No user data found</div>}
             <div>
               <div className="flex flex-col gap-10">
                 <div className="flex flex-wrap w-full gap-5 sm:flex-nowrap">
                   <img
                     className="relative w-full border-2 rounded-base sm:w-1/2 aspect-square border-border shadow-light"
-                    src="https://reqres.in/img/faces/7-image.jpg"
+                    src={detail?.avatar}
                     alt="foto"
                   />
                   <div className="flex flex-col justify-between w-full gap-5 sm:w-1/2">
                     <div className="flex flex-col gap-5">
                       <h1 className="text-4xl lg:text-5xl font-heading">
-                        Michael Lawson
+                        {detail?.first_name} {detail?.last_name}
                       </h1>
-                      <h2>ID : 7</h2>
-                      <h2 className="text-xl">First Name : Michael</h2>
-                      <h2 className="text-xl">Last Name : Lawson</h2>
+                      <h2>ID : {id}</h2>
                       <h2 className="text-xl">
-                        Email : michael.lawson@reqres.in
+                        First Name : {detail?.first_name}
                       </h2>
+                      <h2 className="text-xl">
+                        Last Name : {detail?.last_name}
+                      </h2>
+                      <h2 className="text-xl">Email : {detail?.email}</h2>
                       <h2 className="relative p-2 bg-slate-100 rounded-base">
                         Description : Lorem ipsum dolor sit amet consectetur
                         adipisicing elit. Et laborum cupiditate ab nobis earum
@@ -65,13 +84,7 @@ const DetailUserPage = () => {
                         perspiciatis error nemo. Repellendus natus impedit ipsum
                         dolorum harum numquam a fugiat eius id saepe. Neque qui
                         nemo iste quisquam modi tempora ut, minus ipsum quaerat.
-                        Dicta magnam excepturi tenetur, inventore accusamus
-                        corrupti vero quis assumenda fuga, possimus voluptatem
-                        aliquid et hic minima maxime tempora nihil harum
-                        necessitatibus voluptate perferendis nam animi. Itaque
-                        veritatis voluptatibus dolor veniam odio harum eaque
-                        iure neque eos voluptatem vero excepturi dignissimos
-                        officiis, aliquam pariatur!
+                        Dicta magnam excepturi tenetur
                       </h2>
                     </div>
                     <div className="flex gap-5">
@@ -88,35 +101,68 @@ const DetailUserPage = () => {
                             </DialogDescription>
                           </DialogHeader>
                           <div className="grid gap-4 py-4">
+                            <div className="flex justify-center">
+                              <img
+                                className="relative w-full border-2 rounded-base sm:w-1/2 aspect-square border-border shadow-light"
+                                src={detail?.avatar}
+                                alt="foto"
+                              />
+                            </div>
+
                             <div className="grid items-center grid-cols-4 gap-4">
-                              <Label htmlFor="name" className="text-right">
-                                Name
+                              <Label htmlFor="picture" className="text-right">
+                                Picture
                               </Label>
                               <Input
-                                id="name"
-                                defaultValue="Pedro Duarte"
+                                id="picture"
+                                type="file"
                                 className="col-span-3"
                               />
                             </div>
                             <div className="grid items-center grid-cols-4 gap-4">
-                              <Label htmlFor="username" className="text-right">
-                                Username
+                              <Label
+                                htmlFor="first_name"
+                                className="text-right"
+                              >
+                                First Name
                               </Label>
                               <Input
-                                id="username"
-                                defaultValue="@peduarte"
+                                id="first_name"
+                                defaultValue={detail?.first_name}
+                                className="col-span-3"
+                              />
+                            </div>
+                            <div className="grid items-center grid-cols-4 gap-4">
+                              <Label htmlFor="last_name" className="text-right">
+                                Last Name
+                              </Label>
+                              <Input
+                                id="last_name"
+                                defaultValue={detail?.last_name}
+                                className="col-span-3"
+                              />
+                            </div>
+                            <div className="grid items-center grid-cols-4 gap-4">
+                              <Label htmlFor="email" className="text-right">
+                                Email
+                              </Label>
+                              <Input
+                                id="email"
+                                defaultValue={detail?.email}
                                 className="col-span-3"
                               />
                             </div>
                           </div>
                           <DialogFooter>
-                            <Button type="submit">Save changes</Button>
+                            <Button type="submit" onClick={handleAddUser}>
+                              Save changes
+                            </Button>
                           </DialogFooter>
                         </DialogContent>
                       </Dialog>
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <Button>Open</Button>
+                          <Button className="bg-red-400">Delete</Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                           <AlertDialogHeader>
@@ -131,7 +177,11 @@ const DetailUserPage = () => {
                           </AlertDialogHeader>
                           <AlertDialogFooter>
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction>Continue</AlertDialogAction>
+                            <AlertDialogAction
+                              onClick={() => handleDelete(detail?.id)}
+                            >
+                              Continue
+                            </AlertDialogAction>
                           </AlertDialogFooter>
                         </AlertDialogContent>
                       </AlertDialog>
@@ -139,6 +189,13 @@ const DetailUserPage = () => {
                   </div>
                 </div>
                 <CardComment />
+                {successDelete && (
+                  <Alert>
+                    <Terminal className="w-4 h-4" />
+                    <AlertTitle>Delete Success</AlertTitle>
+                    <AlertDescription>Delete Success</AlertDescription>
+                  </Alert>
+                )}
               </div>
             </div>
           </div>
