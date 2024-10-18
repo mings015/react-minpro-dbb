@@ -23,11 +23,10 @@ const HeroSectiom = () => {
         <h1 className="text-5xl md:text-6xl font-heading">Dinamis Data from <span className="text-main">Reqres.in</span></h1>
         <div className="flex flex-col items-center justify-center gap-5 text-xl">
         <h2>
-          Selamat datang di DemoApp, platform yang memperlihatkan kekuatan
-          integrasi API!
+        Welcome to DemoApp, a platform that showcases the power of API integration!
         </h2>
         <h2>
-          Kami menampilkan data real-time yang diambil langsung dari
+        We display real-time data taken directly from
           <span className="text-main"> https://reqres.in/</span>
         </h2>
         </div>

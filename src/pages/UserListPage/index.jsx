@@ -31,8 +31,6 @@ const UserListPage = () => {
     filteredData,
   } = UseUserList();
 
-  
-
   return (
     <div>
       <Header />
