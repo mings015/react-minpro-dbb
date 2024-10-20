@@ -51,6 +51,9 @@ This project utilizes the following libraries:
 
 5. **Shadcn UI**
    - Purpose: Providing pre-built UI components for faster development.
+     
+6. **Neobrutalism.dev**
+   - Purpose: Providing pre-built UI components for faster development.
 
 6. **Lucide React**
    - Purpose: Adding icons to the user interface.
